@@ -98,5 +98,8 @@ Contact.create(
 )
 {% endhighlight %}
 
+So that was it at least I had a database. 
 
-bla bla
+In my scope I saw a user that had many contacts and the contacts belonged to a user.
+
+Now the next step, creating an user. Although it wasn't a project requirement I decided still to let the user login. 
