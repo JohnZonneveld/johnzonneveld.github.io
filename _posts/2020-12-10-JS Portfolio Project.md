@@ -75,7 +75,7 @@ insert into contacts ('app_lotw_owncall','station_callsign','call','band','freq'
 
 Finally I used Atom, with find and replace and deleting some info, to come to the seeds.rb file that I used to fill my database.
 
-% highlight ruby %}
+{% highlight ruby %}
 Contact.create(
   user_id: 1,
   owncall: 'K5GT',
