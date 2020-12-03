@@ -11,7 +11,7 @@ Because of this the framework that I needed was not an issue and was clear in my
 
 Until now I kept my logs in two different places. The Logbook of the World (LotW) hosted by the ARRL (American Radio Relay League) and another online logbook hosted by eQSL.cc. At both sites I was able to download my contacts in ADI format, a format that is used by many logging programs that would make importing the data fairly easy.
 
-Already while working on my Sinatra I came across a ruby script adif_to_sql.rb. it is a command line script and need some adjustments to get it working.
+Already while working on my Sinatra I came across a ruby script adif_to_sql.rb. It is a command line script and needed some adjustments to get it working.
 At least it got me from 
 {% highlight ruby %}
 <eoh>
@@ -71,4 +71,29 @@ insert into contacts ('app_lotw_owncall','station_callsign','call','band','freq'
 ','37
 ','Y // from DXCC entity
 ');
+{% endhighlight %}
+
+Finally I used Atom, with find and replace and deleting some info, to come to the seeds.rb file that I used to fill my database.
+
+% highlight ruby %}
+Contact.create(
+  user_id: 1,
+  owncall: 'K5GT',
+  station_callsign: 'K5GT',
+  my_gridsquare: 'EL15fx',
+  call: 'CT7ACG',
+  band: '20M',
+  freq: '14.07510',
+  mode: 'FT8',
+  modegroup: 'DATA',
+  qso_date: '20190801',
+  time_on: '22:14:00',
+  qsl_rcvd: 'Y',
+  qsl_rdate: '20200921',
+  dxcc: '272',
+  country: 'PORTUGAL',
+  gridsquare: 'IM57vf',
+  cqz: '14',
+  ituz: '37'
+)
 {% endhighlight %}
