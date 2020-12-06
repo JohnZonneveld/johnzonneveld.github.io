@@ -102,4 +102,23 @@ So that was it at least I had a database.
 
 In my scope I saw a user that had many contacts and the contacts belonged to a user.
 
-Now the next step, creating an user. Although it wasn't a project requirement I decided still to let the user login. 
+Now the next step, creating an user. Although it wasn't a project requirement I decided still to let the user login.
+This brought me to user authentication, and keeping track of the user in the front end.
+
+In my app the moment a user is created and can be saved in the render json command an auth_token generated based on 'user_id: user.id' and exp_time.
+{% highlight ruby %}
+def create
+    user = User.new(user_params)
+    if user.save
+        render json: {
+    auth_token: JsonWebToken.encode({user_id: user.id}, exp_time),
+    user: UserSerializer.new(user),
+    success: "User created succesfully"
+    }
+    else
+        render json: { 
+            errors: user.errors.full_messages 
+        }, status: :not_acceptable
+    end 
+  end
+{% endhighlight %}
