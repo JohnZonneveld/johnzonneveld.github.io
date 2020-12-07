@@ -105,20 +105,54 @@ In my scope I saw a user that had many contacts and the contacts belonged to a u
 Now the next step, creating an user. Although it wasn't a project requirement I decided still to let the user login.
 This brought me to user authentication, and keeping track of the user in the front end.
 
-In my app the moment a user is created and can be saved in the render json command an auth_token generated based on 'user_id: user.id' and exp_time.
+In my app the moment a User is created and can be saved in the render json command an auth_token is generated based on 'user_id: user.id' and exp_time.
 {% highlight ruby %}
 def create
-    user = User.new(user_params)
-    if user.save
-        render json: {
-    auth_token: JsonWebToken.encode({user_id: user.id}, exp_time),
-    user: UserSerializer.new(user),
-    success: "User created succesfully"
-    }
-    else
-        render json: { 
-            errors: user.errors.full_messages 
-        }, status: :not_acceptable
-    end 
-  end
+  user = User.new(user_params)
+  if user.save
+      render json: {
+  auth_token: JsonWebToken.encode({user_id: user.id}, exp_time),
+  user: UserSerializer.new(user),
+  success: "User created succesfully"
+  }
+  else
+      render json: { 
+          errors: user.errors.full_messages 
+      }, status: :not_acceptable
+  end 
+end
 {% endhighlight %}
+
+In here the JsonWebToken.encode class method is called. In this method we add the expiry time to the payload. The expiry time is based on Time.now and the @@expiry variable.
+Because Time.now gives us a string we have to translate it to an integer.
+{% highlight ruby %}
+Time.now
+will give us 2020-12-06 15:23:34 -0600
+Time.now.to_i will give us
+1607289835
+{% endhighlight %}
+
+{% highlight ruby %}
+class JsonWebToken
+	def self.encode(payload, expiration)
+		payload[:exp] = expiration
+		JWT.encode(payload, ENV['JWT_SECRET'],'HS256')
+	end
+	
+	def self.decode(token)
+		begin
+			return JWT.decode(token, ENV['JWT_SECRET'],'HS256')[0]
+		rescue
+			'FAILED'
+		end
+	end
+	
+end
+{% endhighlight %}
+
+Every time when the front-end communicates with the back-end the auth_token is exchanged. Except for creating a new User, and the login process because at that moment the frontend can not have a auth_token. This exception for the chekc on token can be found in the back-end in the users and authentication controller in the skip_before_action :authorized, only: [:create]. In all other interactions it will be checked if the action requested is authorized.
+Part in this plays the JWT.decode that returns an exp
+The "exp" (expiration time) claim identifies the expiration time on
+or after which the JWT MUST NOT be accepted for processing.  The
+processing of the "exp" claim requires that the current date/time
+MUST be before the expiration date/time listed in the "exp" claim.
