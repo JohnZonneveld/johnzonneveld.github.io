@@ -110,10 +110,10 @@ In my app the moment a User is created and can be saved in the render json comma
 def create
   user = User.new(user_params)
   if user.save
-      render json: {
-  auth_token: JsonWebToken.encode({user_id: user.id}, exp_time),
-  user: UserSerializer.new(user),
-  success: "User created succesfully"
+    render json: {
+      auth_token: JsonWebToken.encode({user_id: user.id}, exp_time),
+      user: UserSerializer.new(user),
+      success: "User created succesfully"
   }
   else
       render json: { 
@@ -150,9 +150,11 @@ class JsonWebToken
 end
 {% endhighlight %}
 
-Every time when the front-end communicates with the back-end the auth_token is exchanged. Except for creating a new User, and the login process because at that moment the frontend can not have a auth_token. This exception for the chekc on token can be found in the back-end in the users and authentication controller in the skip_before_action :authorized, only: [:create]. In all other interactions it will be checked if the action requested is authorized.
+Every time when the front-end communicates with the back-end the auth_token is exchanged. Except for creating a new User, and the login process because at that moment the frontend can not have a auth_token. This exception for the check of the token can be found in the back-end in the users and authentication controller in the skip_before_action :authorized, only: [:create]. In all other front- and back end interactions a check if the action requested is authorized is performed.
 Part in this plays the JWT.decode that returns an exp
 The "exp" (expiration time) claim identifies the expiration time on
 or after which the JWT MUST NOT be accepted for processing.  The
 processing of the "exp" claim requires that the current date/time
 MUST be before the expiration date/time listed in the "exp" claim.
+
+In my project I have two actions of CRUD for the user and all four for the contact. The user's profile page is displayed with information returned from the backend after a successful login and not a read request. A user can create a login by registering and can update the user profile. Contacts can be created, displayed (read), updated and deleted.
