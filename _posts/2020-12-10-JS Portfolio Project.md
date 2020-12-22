@@ -9,7 +9,8 @@ For my project I took the same subject as with the Sinatra project, as a hobby I
 
 Because of this the framework that I needed was not an issue and was clear in my head.
 
-Until now I kept my logs in two different places. The Logbook of the World (LotW) hosted by the ARRL (American Radio Relay League) and another online logbook hosted by eQSL.cc. At both sites I was able to download my contacts in ADI format, a format that is used by many logging programs that would make importing the data fairly easy.
+I log my contacts in two different places, most contacts I have made so far are on digital modes. The programs I use for this offer automated logging to online logbooks. The Logbook of the World (LotW) hosted by the ARRL (American Radio Relay League) and another online logbook hosted by eQSL.cc. Both sites allow you to download your contacts in ADIF format, a format that is used by many logging programs since 1997 that would make importing the data fairly easy.
+For my project I used the LoTW data to seed my data into the postgresql database
 
 Already while working on my Sinatra I came across a ruby script adif_to_sql.rb. It is a command line script and needed some adjustments to get it working.
 At least it got me from 
@@ -98,7 +99,7 @@ Contact.create(
 )
 {% endhighlight %}
 
-So that was it at least I had a database. 
+So that was it, at least I had a database. 
 
 In my scope I saw a user that had many contacts and the contacts belonged to a user.
 
