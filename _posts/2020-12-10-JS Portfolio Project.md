@@ -164,7 +164,7 @@ processing of the "exp" claim requires that the current date/time
 MUST be before the expiration date/time listed in the "exp" claim.
 With every interaction after log in the auth_token is refreshed and stored in localStorage.jwt with localStorage.setItem("jwt", json.auth_token). When a request is made to the backend the auth_token is read with its co-companion getItem (localStorage.getItem("jwt")) and send in the back end as a Authorization: `Bearer: ${localStorage.getItem("jwt")`} header in the fetch request.
 
-{% highlight ruby %}
+{% highlight javascript %}
 function submitAddContact() {
     const contactData = readContactForm()
     fetch(baseUrl+`/contacts/`, {
