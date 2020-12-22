@@ -171,7 +171,7 @@ Biggest challenge in the whole javascript project was the placement of the addEv
 Both for the User and the Contact I was able to use one form for the edit and create action.
 For this I needed to create a JavaScript Object that I could use in the form. The User was the easiest because for the User I didn't need default values. On the other hand for the create Contact I needed some default values when creating the JavaScript Contact object. For this I used the state.page value, this I use also to render the different pages in the render() function. 
 
-[% highlight ruby %]
+{% highlight ruby %}
 function contactForm() {
     let title
     if (state.page == "addContact") {
@@ -181,10 +181,10 @@ function contactForm() {
         contact = contactDetail
         title = "Edit contact"
     }
-[% end highlight %]
+{% end highlight %}
 
 To overcome empty values in the new object I used a ternary expression to display either nothing or the stored value. See the below example
 
-[% highlight ruby %]
+{% highlight ruby %}
 value="${(typeof contact.call == 'undefined') ? "":contact.call}"
-[% end highlight %]
+{% end highlight %}
