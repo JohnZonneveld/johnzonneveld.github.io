@@ -182,10 +182,10 @@ function contactForm() {
         contact = contactDetail
         title = "Edit contact"
     }
-{% end highlight %}
+{% endhighlight %}
 
 To overcome empty values in the new object I used a ternary expression to display either nothing or the stored value. See the below example
 
 {% highlight ruby %}
 value="${(typeof contact.call == 'undefined') ? "":contact.call}"
-{% end highlight %}
+{% endhighlight %}
