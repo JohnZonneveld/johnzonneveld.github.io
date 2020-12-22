@@ -156,19 +156,39 @@ class JsonWebToken
 end
 {% endhighlight %}
 
-Every time when the front-end communicates with the back-end the auth_token is exchanged. Except for creating a new User, and the login process because at that moment the frontend can not have a auth_token. This exception for the check of the token can be found in the back-end in the users and authentication controller in the skip_before_action :authorized, only: [:create]. In all other front- and back end interactions a check if the action requested is authorized is performed.
-Part in this plays the JWT.decode that returns an exp.
+Every time when the front-end communicates with the back-end the auth_token is exchanged. Except for creating a new User, and the login process because at that moment the frontend can not have a auth_token. This exception for the check of the token can be found in the back-end in the users and authentication controller in the skip_before_action :authorized, only: [:create]. In all other front- and back end interactions a check if the action requested is done by an authorized user is performed.
+Part of this process is the JWT.decode that returns an exp.
 The "exp" (expiration time) claim identifies the expiration time on
 or after which the JWT MUST NOT be accepted for processing.  The
 processing of the "exp" claim requires that the current date/time
 MUST be before the expiration date/time listed in the "exp" claim.
-With every interaction after log in the auth_token is refreshed and stored in localStorage.jwt with localStorage.setItem("jwt", json.auth_token). When a request is made to the backend the auth_token is read with its co-companion getItem (localStorage.getItem("jwt"))
+With every interaction after log in the auth_token is refreshed and stored in localStorage.jwt with localStorage.setItem("jwt", json.auth_token). When a request is made to the backend the auth_token is read with its co-companion getItem (localStorage.getItem("jwt")) and send in the back end as a Authorization: `Bearer: ${localStorage.getItem("jwt")`} header in the fetch request.
+
+{% ruby highlight %}
+function submitAddContact() {
+    const contactData = readContactForm()
+    fetch(baseUrl+`/contacts/`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Bearer: ${localStorage.getItem("jwt")}`
+        },
+        body: JSON.stringify(contactData)
+    })
+    .then(response => response.json())
+    .then(json => {
+        localStorage.setItem("jwt", json.auth_token)
+        if (json.message) {
+          etc..
+{% endhighlight %}
+
 
 In my project I have two actions of CRUD for the user and all four for the contact. The user's profile page is displayed with information returned from the backend after a successful login and not a read request. A user can create a login by registering and can update the user profile. Contacts can be created, displayed (read), updated and deleted.
 
 Biggest challenge in the whole javascript project was the placement of the addEventListeners. Reason for this is that they can only be declared after the object they are monitoring is written in the DOM otherwise they don't exist and can not be monitored.
 
-<h2>One forms for Edit and Add need for classes</h2>
+<h2>One form for Edit and Add need for classes</h2>
 Both for the User and the Contact I was able to use one form for the edit and create action.
 For this I needed to create a JavaScript Object that I could use in the form. The User was the easiest because for the User I didn't need default values. On the other hand for the create Contact I needed some default values when creating the JavaScript Contact object. For this I used the state.page value, this I use also to render the different pages in the render() function. 
 
