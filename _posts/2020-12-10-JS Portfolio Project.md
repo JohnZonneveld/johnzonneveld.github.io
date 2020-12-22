@@ -78,24 +78,24 @@ Finally I used Atom, with find and replace and deleting some info, to come to th
 
 {% highlight ruby %}
 Contact.create(
-  user_id: 1,
-  owncall: 'K5GT',
-  station_callsign: 'K5GT',
-  my_gridsquare: 'EL15fx',
-  call: 'CT7ACG',
-  band: '20M',
-  freq: '14.07510',
-  mode: 'FT8',
-  modegroup: 'DATA',
-  qso_date: '20190801',
-  time_on: '22:14:00',
-  qsl_rcvd: 'Y',
-  qsl_rdate: '20200921',
-  dxcc: '272',
-  country: 'PORTUGAL',
-  gridsquare: 'IM57vf',
-  cqz: '14',
-  ituz: '37'
+    user_id: 1,
+    owncall: 'K5GT',
+    station_callsign: 'K5GT',
+    my_gridsquare: 'EL15fx',
+    call: 'CT7ACG',
+    band: '20M',
+    freq: '14.07510',
+    mode: 'FT8',
+    modegroup: 'DATA',
+    qso_date: '20190801',
+    time_on: '22:14:00',
+    qsl_rcvd: 'Y',
+    qsl_rdate: '20200921',
+    dxcc: '272',
+    country: 'PORTUGAL',
+    gridsquare: 'IM57vf',
+    cqz: '14',
+    ituz: '37'
 )
 {% endhighlight %}
 
@@ -109,18 +109,24 @@ This brought me to user authentication, and keeping track of the user in the fro
 In my app the moment a User is created and can be saved in the render json command an auth_token is generated based on 'user_id: user.id' and exp_time.
 {% highlight ruby %}
 def create
-  user = User.new(user_params)
-  if user.save
-    render json: {
-      auth_token: JsonWebToken.encode({user_id: user.id}, exp_time),
-      user: UserSerializer.new(user),
-      success: "User created succesfully"
-  }
-  else
-      render json: { 
-          errors: user.errors.full_messages 
-      }, status: :not_acceptable
-  end 
+    user = User.new(user_params)
+    if user.save
+        render json: {
+            auth_token: JsonWebToken.encode({user_id: user.id}, exp_time),
+            user: UserSerializer.new(user),
+            success: "User created succesfully"
+        }
+    else
+        render json: { 
+            errors: user.errors.full_messages 
+        }, status: :not_acceptable
+    end 
+end
+
+private
+    
+def user_params
+    params.require(:user).permit!
 end
 {% endhighlight %}
 
@@ -135,19 +141,18 @@ Time.now.to_i will give us
 
 {% highlight ruby %}
 class JsonWebToken
-	def self.encode(payload, expiration)
-		payload[:exp] = expiration
-		JWT.encode(payload, ENV['JWT_SECRET'],'HS256')
-	end
-	
-	def self.decode(token)
-		begin
-			return JWT.decode(token, ENV['JWT_SECRET'],'HS256')[0]
-		rescue
-			'FAILED'
-		end
-	end
-	
+    def self.encode(payload, expiration)
+        payload[:exp] = expiration
+        JWT.encode(payload, ENV['JWT_SECRET'],'HS256')
+    end
+    
+    def self.decode(token)
+        begin
+            return JWT.decode(token, ENV['JWT_SECRET'],'HS256')[0]
+        rescue
+            'FAILED'
+        end
+    end   
 end
 {% endhighlight %}
 
@@ -162,3 +167,24 @@ With every interaction after log in the auth_token is refreshed and stored in lo
 In my project I have two actions of CRUD for the user and all four for the contact. The user's profile page is displayed with information returned from the backend after a successful login and not a read request. A user can create a login by registering and can update the user profile. Contacts can be created, displayed (read), updated and deleted.
 
 Biggest challenge in the whole javascript project was the placement of the addEventListeners. Reason for this is that they can only be declared after the object they are monitoring is written in the DOM otherwise they don't exist and can not be monitored.
+
+Both for the User and the Contact I was able to use one form for the edit and create action.
+For this I needed to create a JavaScript Object that I could use in the form. The User was the easiest because for the User I didn't need default values. On the other hand for the create Contact I needed some default values when creating the JavaScript Contact object. For this I used the state.page value, this I use also to render the different pages in the render() function. 
+
+[% highlight ruby %]
+function contactForm() {
+    let title
+    if (state.page == "addContact") {
+        contact = new Contact
+        title = "Add contact"
+    } else {
+        contact = contactDetail
+        title = "Edit contact"
+    }
+[% end highlight %]
+
+To overcome empty values in the new object I used a ternary expression to display either nothing or the stored value. See the below example
+
+[% highlight ruby %]
+value="${(typeof contact.call == 'undefined') ? "":contact.call}"
+[% end highlight %]
