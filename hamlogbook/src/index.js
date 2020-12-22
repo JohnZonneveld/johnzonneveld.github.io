@@ -20,8 +20,8 @@ const loginPage = `
                 <label for="password" class="text-info">Password:</label>
                 <input type="password" name="password" id="password" class="form-control">
             </div>
-            <input id="loginBtn" type="button" name="login" class="btn btn-info" value="Login">
-            <input id="registerBtn" type="button" name="register" class="btn btn-info" value="Register">
+            <input id="btn" type="button" name="login" class="btn btn-info" value="Login">
+            <input id="btn" type="button" name="register" class="btn btn-info" value="Register">
         </form>
     </div>
 `
@@ -151,9 +151,12 @@ function render(id){
         break;
         case "addContact":
             contactForm()
+            
             contactSubmitButton()
+            
             const submitAddContactButton = buttons.submitAddContact
             submitAddContactButton.addEventListener("click", submitAddContact)
+            document.getElementById('call').addEventListener('input', searchContact)
         break;
         case "contactDetail":
             contactDetail = getDisplayContactDetail(id)
@@ -198,5 +201,9 @@ function render(id){
         })
     deleteContactButton.addEventListener("click", deleteContact)
 }
+
+function doThing(){
+    alert('Horray! Someone wrote "' + this.value + '"!');
+ }
 
 hasToken()

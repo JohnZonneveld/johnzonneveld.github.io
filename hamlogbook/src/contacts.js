@@ -8,6 +8,7 @@ let rowHTML = ""
 let page
 
 class Contact {
+    static all = []
     constructor(attributes){
         if (attributes) {
             // in case a existing contact set all the values present in the attributes
@@ -35,6 +36,7 @@ class Contact {
             this.cqz = attributes.cqz
             this.ituz = attributes.ituz
             this.park = attributes.park
+            Contact.all.push(this)
         } else {
             // in case creating a new contact set my info and current date and time in utc
             let utcDate = new Date().toISOString()
@@ -90,14 +92,14 @@ const contactHeader = `
         <h4 class="text-center text-info">Your contacts</h4>
         <div class="optionsDiv">
             Filter By 
-            <select id="selectField" onchange="changePlaceholder()">
-                <option value="callsign" selected>Callsign</option>
+            <select id="selectField">
+                <option value="call" selected>Callsign</option>
                 <option value="country">Country</option>
                 <option value="mode">Mode</option>
                 <br> 
             </select>
-            <input type="text" id="searchInput" placeholder="Filtering on partially match of callsign" oninput="filterContactObjects()">
-        </div>
+            <input type="text" id="searchInput" placeholder="Filtering on partially match of callsign">
+            </div>
         <div class="table-responsive" id="contactsContentDiv"></div>
     </div>
     page: <span id="page"></span>
@@ -246,7 +248,7 @@ function contactForm() {
         <form>
             <div class="form-group form-inline">
                 <label for="callsign" class="addContact text-info">Callsign: </label>
-                <input type="text" class="form-control-sm" id="call" oninput="searchContact()" value="${(typeof contact.call == 'undefined') ? "":contact.call}" required>
+                <input type="text" class="form-control-sm" id="call"  value="${(typeof contact.call == 'undefined') ? "":contact.call}" required>
                 <span class="validity"></span>
             </div>
         </form>
@@ -445,14 +447,14 @@ function searchContact() {
         console.log('filtering')
         // filteredContacts=[]
         prevContactsView.style.display = "block"
-        for (let i=0; i < contactObjects.length; i++) {
+        for (let i=0; i < Contact.all.length; i++) {
             // grab an instance
-            let contactObject = contactObjects[i]
+            let contactObject = Contact.all[i]
             let call = contactObject.call
             // indexOf will return -1 if the call does not contain the filter
             if (call.indexOf(filter) > -1){
                 //if it is greater than -1 then the name does contain the filter
-                //therefor push it into the array of filteredDottomodachi
+                //therefor push it into the array of contactOjectsToDisplay
                filteredContacts.push(contactObject)
             }
         }
@@ -719,68 +721,28 @@ function filterContactObjects() {
     let filterCategory = document.getElementById('selectField').value
     let searchFilter = document.getElementById('searchInput').value.toUpperCase()
     contactObjectsToDisplay=[]
-    if (filterCategory == "callsign" ) {
+    // if (filterCategory == "call" ) {
         if (searchFilter.length > 0) {
             console.log('filtering')
-            for (let i=0; i < contactObjects.length; i++) {
-                // grab an instance
-                let contactObject = contactObjects[i]
-                let call = contactObject.call
-                // https://www.w3schools.com/jsref/jsref_indexof.asp
-                // indexOf will return -1 if the name does not contain the filter
-                if (call.indexOf(searchFilter) > -1){
-                    //if it is greater than -1 then the name does contain the filter
-                    //therefor push it into the array of filteredDottomodachi
-                contactObjectsToDisplay.push(contactObject)
+            Contact.all.forEach(function(contact) {
+                let filter = contact[filterCategory]
+                if (filter.indexOf(searchFilter) > -1){
+                        // if it is greater than -1 then the name does contain the filter
+                        // therefor push it into the array of contactObjectsToDisplay
+                        contactObjectsToDisplay.push(contact)
                 }
-            }
+            })
         } else {
-            contactObjectsToDisplay = contactObjects
+            contactObjectsToDisplay = Contact.all
         }
-    }
-    if (filterCategory == "country" ) {
-        if (searchFilter.length > 0) {
-            console.log('filtering')
-            for (let i=0; i < contactObjects.length; i++) {
-                // grab an instance
-                let contactObject = contactObjects[i]
-                let country = contactObject.country
-                // indexOf will return -1 if the name does not contain the filter
-                if (country.indexOf(searchFilter) > -1){
-                    //if it is greater than -1 then the name does contain the filter
-                    //therefor push it into the array of filteredDottomodachi
-                contactObjectsToDisplay.push(contactObject)
-                }
-            }
-        } else {
-            contactObjectsToDisplay = contactObjects
-        }
-    }
-    if (filterCategory == "mode" ) {
-        if (searchFilter.length > 0) {
-            console.log('filtering')
-            for (let i=0; i < contactObjects.length; i++) {
-                // grab an instance
-                let contactObject = contactObjects[i]
-                let mode = contactObject.mode
-                // indexOf will return -1 if the name does not contain the filter
-                if (mode.indexOf(searchFilter) > -1){
-                    //if it is greater than -1 then the name does contain the filter
-                    //therefor push it into the array of filteredDottomodachi
-                contactObjectsToDisplay.push(contactObject)
-                }
-            }
-        } else {
-            contactObjectsToDisplay = contactObjects
-        }
-    }
+    
     page = 1
     changePage(page)
 }
 
 function getContacts() {
     console.log('entering get contacts')
-    contactObjects = []
+    Contact.all = []
     contactObjectsToDisplay = []
     fetch(baseUrl+`/contacts`, {
         method: "GET",
@@ -802,12 +764,12 @@ function getContacts() {
                 if (jsonContacts.length != 0) {
                     for (let i = 0; i < jsonContacts.length; i++) {
                         contactObject = new Contact(jsonContacts[i].attributes)
-                        contactObjects.push(contactObject)
+                        // contactObjects.push(contactObject)
                     }
                 }
                 infoBox.innerHTML = navigationBar
                 infoBox.innerHTML += contactHeader
-                contactObjectsToDisplay = contactObjects
+                contactObjectsToDisplay = Contact.all
                 changePage(currentPage)
             }
         }
@@ -862,6 +824,8 @@ function endPage()
     
 function changePage(page)
 {
+    document.getElementById('searchInput').addEventListener('input', filterContactObjects)
+    document.getElementById('selectField').addEventListener('change', changePlaceholder)
     let contactsTable = document.getElementById("contactsContentDiv");
     let pageSpan = document.getElementById("page");
     // Validate page
