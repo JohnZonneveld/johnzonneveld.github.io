@@ -210,4 +210,4 @@ To overcome empty values in the new object I used a ternary expression to displa
 value="${(typeof contact.call == 'undefined') ? "":contact.call}"
 {% endhighlight %}
 
-bla bla
+Depending on the state.page I either write the HTML for a button with an id="submitAddContact" or id="submitEditContact.  Also the title of the form is adapted in the same way
