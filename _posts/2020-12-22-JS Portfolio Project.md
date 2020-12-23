@@ -14,7 +14,7 @@ For my project I used the LoTW data to seed my data into the postgresql database
 
 Already while working on my Sinatra I came across a ruby script adif_to_sql.rb. It is a command line script and needed some adjustments to get it working.
 At least it got me from 
-{% highlight ruby %}
+{% highlight sql %}
 <eoh>
 
 <APP_LoTW_OWNCALL:4>K5GT
@@ -46,7 +46,7 @@ At least it got me from
 
 to
 
-{% highlight ruby %}
+{% highlight sql %}
 insert into contacts ('app_lotw_owncall','station_callsign','call','band','freq','mode','app_lotw_modegroup','qso_date','app_lotw_rxqso','time_on','app_lotw_qso_timestamp','qsl_rcvd','qslrdate','app_lotw_rxqsl','dxcc','country','app_lotw_dxcc_entity_status','pfx','app_lotw_2xqsl','gridsquare','cqz','app_lotw_cqz_inferred','ituz','app_lotw_ituz_inferred') values ('K5GT
 ','K5GT
 ','CT7ACG
@@ -76,7 +76,7 @@ insert into contacts ('app_lotw_owncall','station_callsign','call','band','freq'
 
 Finally I used Atom, with find and replace and deleting some info, to come to the seeds.rb file that I used to fill my database.
 
-{% highlight ruby %}
+{% highlight sql %}
 Contact.create(
     user_id: 1,
     owncall: 'K5GT',
@@ -132,7 +132,7 @@ end
 
 In here the JsonWebToken.encode class method is called. In this method we add the expiry time to the payload. The expiry time is based on Time.now and the @@expiry variable.
 Because Time.now gives us a string we have to translate it to an integer.
-{% highlight ruby %}
+{% highlight javascript %}
 Time.now
 will give us 2020-12-06 15:23:34 -0600
 Time.now.to_i will give us
@@ -192,7 +192,7 @@ Biggest challenge in the whole javascript project was the placement of the addEv
 Both for the User and the Contact I was able to use one form for the edit and create action.
 For this I needed to create a JavaScript Object that I could use in the form. The User was the easiest because for the User I didn't need default values. On the other hand for the create Contact I needed some default values when creating the JavaScript Contact object. For this I used the state.page value, this I use also to render the different pages in the render() function. 
 
-{% highlight ruby %}
+{% highlight javascript %}
 function contactForm() {
     let title
     if (state.page == "addContact") {
@@ -206,6 +206,8 @@ function contactForm() {
 
 To overcome empty values in the new object I used a ternary expression to display either nothing or the stored value. See the below example
 
-{% highlight ruby %}
+{% highlight javascript %}
 value="${(typeof contact.call == 'undefined') ? "":contact.call}"
 {% endhighlight %}
+
+bla bla
