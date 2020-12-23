@@ -8,8 +8,9 @@ title: JS Portfolio Project Flatiron School (mod4 project)!
 For my project I took the same subject as with the Sinatra project, as a hobby I have my radio amateur license. Especially for long distances we like to keep a logbook, maybe a bit to show off.
 
 Because of this, the framework that I needed was not an issue and was clear in my head.
-
-![LoTW logo](/assets/img/lotw-logo.jpg){:class="img-responsive"}
+LOTW logo             |  eQSL logo
+:-------------------------:|:-------------------------:
+![LoTW logo](/assets/img/lotw-logo.jpg){:class="img-responsive"} |
 ![eQSL logo](/assets/img/eqsl_logo.jpg){:class="img-responsive"}
 
 
