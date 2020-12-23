@@ -3,7 +3,9 @@ layout: post
 title: JS Portfolio Project Flatiron School (mod4 project)!
 ---
 
-JS project
+JS project - HAM Logbook
+
+![LoTW logo](/assets/img/lotw-logo.jpg){:class="img-responsive"}
 
 For my project I took the same subject as with the Sinatra project, as a hobby I have my radio amateur license. Especially for long distances we like to keep a logbook, maybe a bit to show off.
 
