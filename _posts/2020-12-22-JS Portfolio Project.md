@@ -10,7 +10,7 @@ For my project I took the same subject as with the Sinatra project, as a hobby I
 Because of this, the framework that I needed was not an issue and was clear in my head.
 
 ![LoTW logo](/assets/img/lotw-logo.jpg){:class="img-responsive"}
-![LoTW logo](/assets/img/eqsl_logo.jpg){:class="img-responsive"}
+![eQSL logo](/assets/img/eqsl_logo.jpg){:class="img-responsive"}
 
 
 I log my contacts in two different places, most contacts I have made so far are on digital modes. The programs I use for this offer automated logging to online logbooks. The one that I use are Logbook of the World (LotW) hosted by the ARRL (American Radio Relay League) and eQSL.cc. Both sites allow you to download your contacts in ADIF format, a format that was proposed in 1996 and used by many logging programs since 1997. This should make importing the data fairly easy.
