@@ -212,7 +212,7 @@ value="${(typeof contact.call == 'undefined') ? "":contact.call}"
 
 Depending on the state.page I either write the HTML for a button with an id="submitAddContact" or id="submitEditContact.  Also the title of the form is adapted in the same way.
 
-![Contact detail screen](../_images/contact_detail.jpg){:class="img-responsive"}
+![Contact detail screen](/images/contact_detail.jpg){:class="img-responsive"}
 
 <h2>Conclusion</h2>
 Some other projects gave me a hard time of coming up with a subject and how to get it started. This project, because it is hobby related made things a lot easier. Most time I have spend on things that were not a project requirement, like how to use the JsonWebToken for the user authentication. Also implementing the Google maps API was challenging, you have to have a space defined on the page before you can call the map-script. Of course a lot of examples can be found on the world wide web, but never exactly what you are looking for.
