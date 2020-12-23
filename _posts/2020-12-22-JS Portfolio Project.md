@@ -7,9 +7,9 @@ JS project
 
 For my project I took the same subject as with the Sinatra project, as a hobby I have my radio amateur license. Especially for long distances we like to keep a logbook, maybe a bit to show off.
 
-Because of this the framework that I needed was not an issue and was clear in my head.
+Because of this, the framework that I needed was not an issue and was clear in my head.
 
-I log my contacts in two different places, most contacts I have made so far are on digital modes. The programs I use for this offer automated logging to online logbooks. The Logbook of the World (LotW) hosted by the ARRL (American Radio Relay League) and another online logbook hosted by eQSL.cc. Both sites allow you to download your contacts in ADIF format, a format that is used by many logging programs since 1997 that would make importing the data fairly easy.
+I log my contacts in two different places, most contacts I have made so far are on digital modes. The programs I use for this offer automated logging to online logbooks. The one that I use are Logbook of the World (LotW) hosted by the ARRL (American Radio Relay League) and eQSL.cc. Both sites allow you to download your contacts in ADIF format, a format that was proposed in 1996 and used by many logging programs since 1997. This should make importing the data fairly easy.
 For my project I used the LoTW data to seed my data into the postgresql database
 
 Already while working on my Sinatra I came across a ruby script adif_to_sql.rb. It is a command line script and needed some adjustments to get it working.
@@ -210,4 +210,10 @@ To overcome empty values in the new object I used a ternary expression to displa
 value="${(typeof contact.call == 'undefined') ? "":contact.call}"
 {% endhighlight %}
 
-Depending on the state.page I either write the HTML for a button with an id="submitAddContact" or id="submitEditContact.  Also the title of the form is adapted in the same way
+Depending on the state.page I either write the HTML for a button with an id="submitAddContact" or id="submitEditContact.  Also the title of the form is adapted in the same way.
+
+![Contact detail screen](/_images/contact_detail.jpg){:class="img-responsive"}
+
+<h2>Conclusion</h2>
+Some other projects gave me a hard time of coming up with a subject and how to get it started. This project, because it is hobby related made things a lot easier. Most time I have spend on things that were not a project requirement, like how to use the JsonWebToken for the user authentication. Also implementing the Google maps API was challenging, you have to have a space defined on the page before you can call the map-script. Of course a lot of examples can be found on the world wide web, but never exactly what you are looking for.
+All in all it was fun to do, and while I was already near completion of this project, still some things to add or change came up after listening to the online lectures.
