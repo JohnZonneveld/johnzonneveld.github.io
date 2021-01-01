@@ -186,7 +186,7 @@ Biggest challenge in the whole javascript project was the placement of the addEv
 
 <h2>Grid validation, multiple variations possible</h2>
 For the Maidenhead grid, because its importance, I added a validation to the values. The Maidenhead grid we need  to calculate the distance and to display the location correctly on the Google Map.
-The Maidenhead grid is agreed upon in 1999 when a more global gridsystem was needed as the before used QRA locator grid that only covered Europe. The Maidenhead grid is based on the World Geodetic System 1984. My Maidenhead grid is EL15fx62. In each pair (EL, 15, fx, 62) the first character encodes the longitude and the second the latitude. In this grid EL defines the 'field', 15 defines the square, fx defines the sub-square and 62 the extended square. It goes even a level deeper that gives more precision.
+The Maidenhead grid is agreed upon in 1999 when a more global gridsystem was needed as the before used QRA locator grid only covered Europe. The Maidenhead grid is based on the World Geodetic System 1984. My Maidenhead grid is EL15fx62. In each pair (EL, 15, fx, 62) the first character encodes the longitude and the second the latitude. In this grid EL defines the 'field', 15 defines the square, fx defines the sub-square and 62 the extended square. It goes even a level deeper that gives more precision.
 
 ![Maidenhead Fields](/assets/img/Maidenhead_Locator_Map.png){:class="img-responsive"}
 
@@ -205,6 +205,15 @@ So for the gridsqaure we have three acceptable formats, in my case EL15, EL15fx 
 ![EL15fx](/assets/img/EL15fx.jpg){:class="img-responsive"}
 
 ![EL15fx62](/assets/img/EL15fx62.jpg){:class="img-responsive"}
+
+As you can see, in the above images the more characters in the gridsquare notation the more accurate the position will be. As I mentioned before all these three different notations are valid and have to be accepted in the forms.
+In Javascript I added the following validation pattern="[A-R]{2}[0-9]{2}([a-x]{2})?([0-9]{2})?", this will give us a HTML validation and together with some css in the form of:
+{% highlight javascript %}
+input:invalid {
+    background-color: coral;
+}
+{% endhighlight %}
+we can make the background turn read so the user can easier see which value is of a wrong format.
 
 <h2>One form for Edit and Add, need for classes</h2>
 Both for the User and the Contact I was able to use one form for the edit and create action.
