@@ -201,14 +201,11 @@ A further division is available as the sub-square can be divided again in 100 ex
 
 So for the gridsqaure we have three acceptable formats, in my case EL15, EL15fx and EL15fx62
 
-![EL15](/assets/img/EL15.jpg){:class="img-responsive"}
-<center><figcaption>EL15</figcaption></center>
+![EL15](/assets/img/EL15.jpg){:class="img-responsive"}*EL15*
 
-![EL15fx](/assets/img/EL15fx.jpg){:class="img-responsive"}
-<center>EL15fx</center>
+![EL15fx](/assets/img/EL15fx.jpg){:class="img-responsive"}*EL15fx*
 
-![EL15fx62](/assets/img/EL15fx62.jpg){:class="img-responsive"}
-<center>EL15fx62</center>
+![EL15fx62](/assets/img/EL15fx62.jpg){:class="img-responsive"}*EL15fx62*
 
 As you can see, in the above images the more characters in the gridsquare notation the more accurate the position will be. As I mentioned before all these three different notations are valid and have to be accepted in the forms.
 In Javascript I added the following validation pattern="[A-R]{2}[0-9]{2}([a-x]{2})?([0-9]{2})?", this will give us a HTML validation and together with some css in the form of:
