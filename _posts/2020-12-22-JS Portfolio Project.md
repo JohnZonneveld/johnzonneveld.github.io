@@ -186,14 +186,25 @@ Biggest challenge in the whole javascript project was the placement of the addEv
 
 <h2>Grid validation, multiple variations possible</h2>
 For the Maidenhead grid, because its importance, I added a validation to the values. The Maidenhead grid we need  to calculate the distance and to display the location correctly on the Google Map.
-The Maidenhead grid is agreed upon in 1999 when a more global gridsystem was needed as the before used QRA locator grid that only covered Europe. The Maidenhead grid is based on the World Geodetic System 1984. My Maidenhead grid is EL15fx62. In each pair (EL, 15, fx, 62) the first character encodes the longitude and the second the latitude. In this grid EL defines the 'field', 15 defines the square, fx defines the subsquare and 62 the extended square. It goes even a level deeper that gives more precision.
+The Maidenhead grid is agreed upon in 1999 when a more global gridsystem was needed as the before used QRA locator grid that only covered Europe. The Maidenhead grid is based on the World Geodetic System 1984. My Maidenhead grid is EL15fx62. In each pair (EL, 15, fx, 62) the first character encodes the longitude and the second the latitude. In this grid EL defines the 'field', 15 defines the square, fx defines the sub-square and 62 the extended square. It goes even a level deeper that gives more precision.
 
 ![Maidenhead Fields](/assets/img/Maidenhead_Locator_Map.png){:class="img-responsive"}
 
 The size of these fields is 20º longitude and 10º latitude. A sphere is 360º around its equator and 180º south to north. This makes that we divide the globe in 324 fields and can code them by using the letters A-R.
-The fields themselves are again divided in 100 squares (10x10) each 2º in longitude and 1º in latitude. At a moderate latitude this will give a square of approximately 70x100 miles
+The fields themselves are again divided in 100 squares (10x10) each 2º in longitude and 1º in latitude. The squares can be coded by 2 digits 00-99. At a moderate latitude this will give a square of approximately 70x100 miles.
 
 ![Maidenhead Squares](/assets/img/maidenhead_squares.jpg){:class="img-responsive"}
+
+Each square again is divided in 576 sub-squares, coded with 'aa' to 'xx'. Sub-squares cover an area of approxumately 4x6 miles. This is the most used format in the radio amateur world, but still is an approximate location.
+A further division is available as the sub-square can be divided again in 100 extended squares which will give a grid of approximately 0.4x0.6 miles, this is as far as I go in my app. 
+
+So for the gridsqaure we have three acceptable formats, in my case EL15, EL15fx and EL15fx62
+
+![EL15](/assets/img/EL15.jpg){:class="img-responsive"}
+
+![EL15fx](/assets/img/EL15fx.jpg){:class="img-responsive"}
+
+![EL15fx62](/assets/img/EL15fx62.jpg){:class="img-responsive"}
 
 <h2>One form for Edit and Add need for classes</h2>
 Both for the User and the Contact I was able to use one form for the edit and create action.
