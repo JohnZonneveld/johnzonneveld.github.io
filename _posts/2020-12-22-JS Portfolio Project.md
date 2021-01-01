@@ -207,7 +207,7 @@ So for the gridsquare we have three acceptable formats, in my case EL15, EL15fx 
 
 ![EL15fx62](/assets/img/EL15fx62.jpg){:class="img-responsive"}*EL15fx62*
 
-As you can see, in the above images the more characters in the gridsquare notation the more accurate the position will be. As I mentioned before all these three different notations are valid and have to be accepted in the forms.
+As you can see, in the above images the more characters in the gridsquare notation the more accurate the position will be. As I mentioned before, all these three different notations are valid and have to be accepted in the forms.
 In Javascript I added the following validation pattern="[A-R]{2}[0-9]{2}([a-x]{2})?([0-9]{2})?", this will give us a HTML validation and together with some css in the form of:
 {% highlight javascript %}
 input:invalid {
@@ -248,6 +248,8 @@ value="${(typeof contact.call == 'undefined') ? "":contact.call}"
 {% endhighlight %}
 
 Depending on the state.page I either write the HTML for a button with an id="submitAddContact" or id="submitEditContact.  Also the title of the form is adapted in the same way.
+
+See below the final result of all this magic, the detail display of a contact.
 
 ![Contact detail screen](/assets/img/contact_detail.jpg){:class="img-responsive"}
 
