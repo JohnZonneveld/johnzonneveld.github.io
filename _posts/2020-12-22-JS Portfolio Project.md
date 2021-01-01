@@ -202,7 +202,7 @@ A further division is available as the sub-square can be divided again in 100 ex
 So for the gridsqaure we have three acceptable formats, in my case EL15, EL15fx and EL15fx62
 
 ![EL15](/assets/img/EL15.jpg){:class="img-responsive"}
-<center>EL15</center>
+<center><figcaption>EL15</figcaption></center>
 
 ![EL15fx](/assets/img/EL15fx.jpg){:class="img-responsive"}
 <center>EL15fx</center>
