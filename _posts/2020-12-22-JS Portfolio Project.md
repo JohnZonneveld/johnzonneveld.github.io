@@ -9,13 +9,10 @@ For my project I took the same subject as with the Sinatra project, as a hobby I
 
 Because of this, the framework that I needed was not an issue and was clear in my head.
 
-![LoTW logo](/assets/img/lotw-logo.jpg){:class="img-responsive"} ![eQSL logo](/assets/img/eqsl_logo.jpg){:class="img-responsive"}
-
-
 I log my contacts in two different places, most contacts I have made so far are on digital modes. The programs I use for this offer automated logging to online logbooks. The one that I use are Logbook of the World (LotW) hosted by the ARRL (American Radio Relay League) and eQSL.cc. Both sites allow you to download your contacts in ADIF format, a format that was proposed in 1996 and used by many logging programs since 1997. This should make importing the data fairly easy.
 For my project I used the LoTW data to seed my data into the postgresql database
 
-Already while working on my Sinatra I came across a ruby script adif_to_sql.rb. It is a command line script and needed some adjustments to get it working.
+Already while working on my Sinatra project I came across a ruby script adif_to_sql.rb. It is a command line script and needed some adjustments to get it working.
 At least it got me from 
 {% highlight sql %}
 <eoh>
@@ -109,7 +106,7 @@ In my scope I saw a user that had many contacts and the contacts belonged to a u
 Now the next step, creating an user. Although it wasn't a project requirement I decided still to let the user login.
 This brought me to user authentication, and keeping track of the user in the front end.
 
-In my app the moment a User is created and can be saved in the render json command an auth_token is generated based on 'user_id: user.id' and exp_time.
+In my app, the moment a User is created and can be saved in the render json command, an auth_token is generated based on 'user_id: user.id' and exp_time.
 {% highlight ruby %}
 def create
     user = User.new(user_params)
@@ -160,11 +157,7 @@ end
 {% endhighlight %}
 
 Every time when the front-end communicates with the back-end the auth_token is exchanged. Except for creating a new User, and the login process because at that moment the frontend can not have a auth_token. This exception for the check of the token can be found in the back-end in the users and authentication controller in the skip_before_action :authorized, only: [:create]. In all other front- and back end interactions a check if the action requested is done by an authorized user is performed.
-Part of this process is the JWT.decode that returns an exp.
-The "exp" (expiration time) claim identifies the expiration time on
-or after which the JWT MUST NOT be accepted for processing.  The
-processing of the "exp" claim requires that the current date/time
-MUST be before the expiration date/time listed in the "exp" claim.
+
 With every interaction after log in the auth_token is refreshed and stored in localStorage.jwt with localStorage.setItem("jwt", json.auth_token). When a request is made to the backend the auth_token is read with its co-companion getItem (localStorage.getItem("jwt")) and send in the back end as a Authorization: `Bearer: ${localStorage.getItem("jwt")`} header in the fetch request.
 
 {% highlight javascript %}
@@ -190,6 +183,11 @@ function submitAddContact() {
 In my project I have two actions of CRUD for the user and all four for the contact. The user's profile page is displayed with information returned from the backend after a successful login and not a read request. A user can create a login by registering and can update the user profile. Contacts can be created, displayed (read), updated and deleted.
 
 Biggest challenge in the whole javascript project was the placement of the addEventListeners. Reason for this is that they can only be declared after the object they are monitoring is written in the DOM otherwise they don't exist and can not be monitored.
+
+<h2>Grid validation, multiple variations possible</h2>
+For the Maidenhead grid, because its importance, I added a validation to the values. The Maidenhead grid we need  to calculate the distance and to display the location correctly on the Google Map.
+The Maidenhead grid is agreed upon in 1999 when a more global gridsystem was needed as the before used QRA locator grid that only covered Europe. The Maidenhead grid is based on the World Geodetic System 1984. My Maidenhead grid is EL15fx62. In each pair (EL, 15, fx, 62) the first character encodes the longitude and the second the latitude. In this grid EL defines the 'field', 15 defines the square, fx defines the subsquare and 62 the extended square. It goes even a level deeper that gives more precision.
+![Maidenhead Fields](/assets/img/Maidenhead_Locator_Map.png){:class="img-responsive"}
 
 <h2>One form for Edit and Add need for classes</h2>
 Both for the User and the Contact I was able to use one form for the edit and create action.
