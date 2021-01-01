@@ -206,7 +206,7 @@ So for the gridsqaure we have three acceptable formats, in my case EL15, EL15fx 
 
 ![EL15fx62](/assets/img/EL15fx62.jpg){:class="img-responsive"}
 
-<h2>One form for Edit and Add need for classes</h2>
+<h2>One form for Edit and Add, need for classes</h2>
 Both for the User and the Contact I was able to use one form for the edit and create action.
 For this I needed to create a JavaScript Object that I could use in the form. The User was the easiest because for the User I didn't need default values. On the other hand for the create Contact I needed some default values when creating the JavaScript Contact object. For this I used the state.page value, this I use also to render the different pages in the render() function. 
 
