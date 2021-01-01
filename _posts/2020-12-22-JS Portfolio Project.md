@@ -214,14 +214,14 @@ input:invalid {
     background-color: coral;
 }
 {% endhighlight %}
-we can make the background turn read so the user can easier see which value is of a wrong format.
+we can make the background turn coral-red so the user can easier see which value is of a wrong format.
 
-In the regex expression the first part is mandatory and the two later sections ([a-x]{2})? and ([0-9]{2})? are optional. Tried the same expression in my rails validation, but that didn't quite worked like I would.
+In the regex expression the first part is mandatory and the two later sections ([a-x]{2})? and ([0-9]{2})? are optional. Tried the same expression in my rails validation, but that didn't quite worked like I wanted.
 In Rails I ended up with a little longer expression
 {% highlight ruby %}
 validates_format_of :my_qth, with: /\A([A-R]{2}[0-9]{2})\z|\A([A-R]{2}[0-9]{2}[a-x]{2})\z|\A([A-R]{2}[0-9]{2}[a-x]{2}[0-9]{2})\z/, on: [:create, :update]
 {% endhighlight %}
-In Rails I had to write out all three possible combinations divided with an 'or' and preceded with\A for start of string and followed by \z for end of string 
+In Rails I had to write out all three possible combinations divided with an 'or' and preceded with \A for start of string and followed by \z for end of string 
 
 <h2>One form for Edit and Add, need for classes</h2>
 Both for the User and the Contact I was able to use one form for the edit and create action.
