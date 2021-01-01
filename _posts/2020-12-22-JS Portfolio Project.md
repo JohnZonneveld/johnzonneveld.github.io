@@ -221,7 +221,9 @@ In Rails I ended up with a little longer expression
 {% highlight ruby %}
 validates_format_of :my_qth, with: /\A([A-R]{2}[0-9]{2})\z|\A([A-R]{2}[0-9]{2}[a-x]{2})\z|\A([A-R]{2}[0-9]{2}[a-x]{2}[0-9]{2})\z/, on: [:create, :update]
 {% endhighlight %}
-In Rails I had to write out all three possible combinations divided with an 'or' and preceded with \A for start of string and followed by \z for end of string 
+In Rails I had to write out all three possible combinations divided with an 'or' and preceded with \A for start of string and followed by \z for end of string.
+
+For both the distance and the path display on the Google Map we calculate the center of the square determined by the Maidenhead gridsquare. As the 8-character notation still gives us (at moderate latitudes) a square of 0.4x0.6 miles there is no need to use decimals in the distance calculations as the location is still approximate.
 
 <h2>One form for Edit and Add, need for classes</h2>
 Both for the User and the Contact I was able to use one form for the edit and create action.
