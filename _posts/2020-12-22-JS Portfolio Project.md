@@ -187,10 +187,14 @@ Biggest challenge in the whole javascript project was the placement of the addEv
 <h2>Grid validation, multiple variations possible</h2>
 For the Maidenhead grid, because its importance, I added a validation to the values. The Maidenhead grid we need  to calculate the distance and to display the location correctly on the Google Map.
 The Maidenhead grid is agreed upon in 1999 when a more global gridsystem was needed as the before used QRA locator grid that only covered Europe. The Maidenhead grid is based on the World Geodetic System 1984. My Maidenhead grid is EL15fx62. In each pair (EL, 15, fx, 62) the first character encodes the longitude and the second the latitude. In this grid EL defines the 'field', 15 defines the square, fx defines the subsquare and 62 the extended square. It goes even a level deeper that gives more precision.
+
 ![Maidenhead Fields](/assets/img/Maidenhead_Locator_Map.png){:class="img-responsive"}
+
 The size of these fields is 20º longitude and 10º latitude. A sphere is 360º around its equator and 180º south to north. This makes that we divide the globe in 324 fields and can code them by using the letters A-R.
 The fields themselves are again divided in 100 squares (10x10) each 2º in longitude and 1º in latitude. At a moderate latitude this will give a square of approximately 70x100 miles
+
 ![Maidenhead Squares](/assets/img/maidenhead_squares.jpg){:class="img-responsive"}
+
 <h2>One form for Edit and Add need for classes</h2>
 Both for the User and the Contact I was able to use one form for the edit and create action.
 For this I needed to create a JavaScript Object that I could use in the form. The User was the easiest because for the User I didn't need default values. On the other hand for the create Contact I needed some default values when creating the JavaScript Contact object. For this I used the state.page value, this I use also to render the different pages in the render() function. 
