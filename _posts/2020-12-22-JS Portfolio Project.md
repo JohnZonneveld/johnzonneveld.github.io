@@ -199,7 +199,7 @@ The fields themselves are again divided in 100 squares (10x10) each 2º in longi
 Each square again is divided in 576 sub-squares, coded with 'aa' to 'xx'. Sub-squares cover an area of approxumately 4x6 miles. This is the most used format in the radio amateur world, but still is an approximate location.
 A further division is available as the sub-square can be divided again in 100 extended squares which will give a grid of approximately 0.4x0.6 miles, this is as far as I go in my app. 
 
-So for the gridsqaure we have three acceptable formats, in my case EL15, EL15fx and EL15fx62
+So for the gridsquare we have three acceptable formats, in my case EL15, EL15fx and EL15fx62
 
 ![EL15](/assets/img/EL15.jpg){:class="img-responsive"}*EL15*
 
