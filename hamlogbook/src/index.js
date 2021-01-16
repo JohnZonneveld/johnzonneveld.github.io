@@ -1,6 +1,6 @@
 // Switch between either local or heroku environment
-// const baseUrl = "http://localhost:3000"
-const baseUrl = "https://hamlogbook.herokuapp.com"
+const baseUrl = "http://localhost:3000"
+// const baseUrl = "https://hamlogbook.herokuapp.com"
 
 const buttons = document.getElementsByClassName("btn")
 let infoBox = document.querySelector("#container-box")
@@ -28,17 +28,53 @@ const loginPage = `
 
 // All navigation buttons are created hidden
 const navigationBar = `
-        <div class="form-group text-left">
-            <button type="button" name-"home" class="btn btn-info btn-md hidden" id="homeButton">Back To Login</button>
-            <button type="button" name="logoff" class="btn btn-info btn-md hidden" id="logoffButton">Log Off</button>
-            <button type="button" name="profile" class="btn btn-info btn-md hidden" id="profileButton">Profile</button>
-            <button type="button" name="editProfile" class="btn btn-info btn-md hidden"id="editProfileButton">Edit Profile</button>
-            <button type="button" name="contacts" class="btn btn-info btn-md hidden" id="contactsButton">Contacts</button>
-            <button type="button" name="addContact" class="btn btn-info btn-md hidden" id="addContactButton">Add Contact</button>
-            <button type="button" name="editContact" class="btn btn-info btn-md hidden" id="editContactButton">Edit Contact</button>
-            <button type="button" name="deleteContact" class="btn btn-danger btn-md hidden" id="deleteContactButton">Delete Contact</button>
+        <div class="form-group text-left navigation">
+        <button type="button" name-"home" class="btn btn-info btn-md hidden" id="homeButton">Back To Login</button>
+        <button type="button" name="logoff" class="btn btn-info btn-md hidden" id="logoffButton">Log Off</button>
+        <button type="button" name="profile" class="btn btn-info btn-md hidden" id="profileButton">Profile</button>
+        <button type="button" name="editProfile" class="btn btn-info btn-md hidden"id="editProfileButton">Edit Profile</button>
+        <button type="button" name="contacts" class="btn btn-info btn-md hidden" id="contactsButton">Contacts</button>
+        <button type="button" name="addContact" class="btn btn-info btn-md hidden" id="addContactButton">Add Contact</button>
+        <button type="button" name="editContact" class="btn btn-info btn-md hidden" id="editContactButton">Edit Contact</button>
+        <button type="button" name="deleteContact" class="btn btn-danger btn-md hidden" id="deleteContactButton">Delete Contact</button>
+        <button type="button" name="sortContact" class="btn btn-info btn-md hidden" id="sortContactButton">Contacts by Country</button>
         </div>
     `
+
+function navigationBarEventListeners() {
+    const editPofileButton = buttons.editProfile
+    const logoffButton = buttons.logoff
+    const contactsButton = buttons.contacts
+    const addContactButton = buttons.addContact
+    const homeButton = buttons.homeButton
+    const profileButton = buttons.profileButton
+    const deleteContactButton = buttons.deleteContactButton
+    logoffButton.addEventListener("click", logoff)
+    contactsButton.addEventListener("click", getContacts)
+    profileButton.addEventListener("click", function () {
+            state.page = "profile"
+            render()
+        })
+    editProfileButton.addEventListener("click", editProfile)
+    editContactButton.addEventListener("click", function() {
+        contact = Contact.all.find(obj => obj.id == event.target.dataset.id)
+        contact.contactForm()
+            
+        })
+    addContactButton.addEventListener("click", function () {
+            state.page = "addContact"
+            render()
+        })
+    homeButton.addEventListener("click", function () {
+            state.page = "login"
+            render()
+        })
+    deleteContactButton.addEventListener("click", deleteContact)
+    sortContactButton.addEventListener("click", () => {
+        console.log("sort contacts clicked")
+        sortContacts()
+    })
+}
 
 
 function hasToken(){
@@ -118,7 +154,7 @@ function register() {
     render()
 }
 
-function render(id){
+function render(){
     infoBox.innerHTML = navigationBar
     switch (state.page){
         // first page people see to log in
@@ -150,10 +186,8 @@ function render(id){
             getContacts()
         break;
         case "addContact":
-            contactForm()
-            
-            contactSubmitButton()
-            
+            contact = new Contact()
+            contact.contactForm()
             const submitAddContactButton = buttons.submitAddContact
             submitAddContactButton.addEventListener("click", submitAddContact)
             document.getElementById('call').addEventListener('input', searchContact)
@@ -161,45 +195,9 @@ function render(id){
         case "contactDetail":
             contactDetail = getDisplayContactDetail(id)
         break;
-        case "displayContact":
-            displayContact()
-        break;
-        case "editContact":
-            contactForm()
-            contactSubmitButton()
-            const submitEditContactButton = buttons.submitEditContact
-            submitEditContactButton.addEventListener("click", submitEditContact)
-        break;
     }
-    // Almost every page is rendered through render() so we have a central place
-    // for the eventListeners for the navigation bar buttons
-    const editPofileButton = buttons.editProfile
-    const logoffButton = buttons.logoff
-    const contactsButton = buttons.contacts
-    const addContactButton = buttons.addContact
-    const homeButton = buttons.homeButton
-    const profileButton = buttons.profileButton
-    const deleteContactButton = buttons.deleteContactButton
-    logoffButton.addEventListener("click", logoff)
-    contactsButton.addEventListener("click", getContacts)
-    profileButton.addEventListener("click", function () {
-            state.page = "profile"
-            render()
-        })
-    editProfileButton.addEventListener("click", editProfile)
-    editContactButton.addEventListener("click", function () {
-            state.page = "editContact"
-            render()
-        })
-    addContactButton.addEventListener("click", function () {
-            state.page = "addContact"
-            render()
-        })
-    homeButton.addEventListener("click", function () {
-            state.page = "login"
-            render()
-        })
-    deleteContactButton.addEventListener("click", deleteContact)
+    navigationBarEventListeners()
+    
 }
 
 hasToken()
