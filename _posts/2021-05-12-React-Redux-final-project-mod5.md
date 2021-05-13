@@ -4,7 +4,9 @@ title: React/Redux Portfolio Project Flatiron School (mod5 project)!
 ---
 
 <h2>React/Redux project - GCE pages</h2>
+
 ![GCE pages](/assets/img/gce_homepage.jpg){:class="img-responsive"}
+
 
 For my project I took something that is close to me but yet so far away. I have been travelling all over Europe with a motorcycle group. Last year one of the members that was acting as webmaster stepped down, although I live in the US nowadays I volunteered to take over the helm if there was noone stepping up.
 Officially this should have been my project in February, but life happened. Slept in my car for 5 weeks and the corona situation didn't make things easier as well. On top of it we had the Texas freeze.
