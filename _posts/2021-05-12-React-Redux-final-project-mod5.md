@@ -60,7 +60,7 @@ This connection to the store and the function mapStateToProps makes the member o
 
 So to display the members in the dropdown we simply have to call the .map function on this.props.members
 Bycoming problem, although it makes things easier, is that Select is only showing the value and label. So for the onChange we would have to write a separate function. To overcome this I added the target: 
-{% highlight javascript %} {value: member.id, name: "member_id" {% endhighlight %}in the return. This is returning exactly what we would need for {% highlight javascript %}[event.target.name] = event.target.value{% endhighlight %} Now we can use the onChange we use for all the other fields.
+{% highlight javascript %} {value: member.id, name: "member_id"} {% endhighlight %}in the return. This is returning exactly what we would need for {% highlight javascript %}[event.target.name] = event.target.value{% endhighlight %} Now we can use the onChange we use for all the other fields.
 
 In the editForm we should be able to display the current selection. As the member.id is added to a tour as member_id and the loaded members in this.props.members we should be able to distill and show the name based on the member.id.
 {% highlight javascript %}const currentMemberObject = this.props.members.filter(member => member.id === this.props.tour.member_id){% endhighlight %}
