@@ -6,9 +6,63 @@ title: React/Redux Portfolio Project Flatiron School (mod5 project)!
 <h2>React/Redux project - GCE pages</h2>
 ![GCE pages](/assets/img/gce_homepage.jpg){:class="img-responsive"}
 
-For my project I took the same subject as with the Sinatra project, as a hobby I have my radio amateur license. Especially for long distances we like to keep a logbook, maybe a bit to show off.
+For my project I took somethingthat is close to me but yet s far away. I have been travelling all over Europe with a motorcycle group. Last year one of the members that was acting as webmaster stepped down, although I live in the US nowadays I volunteered to take over the helm if there were no other contestants.
+Officially this should have been my project in February, but life happened. Slept in my car for 5 weeks and the corona situation didn't make things easier as well. On top of it we had the Texas freeze
+But that is all behind us now and we're trying to pick up the pieces and make best of life.
 
-Because of this, the framework that I needed was not an issue and was clear in my head.
+Made a simple React/Redux project that fullfills in the requirements that were set in stone, or at least I hope.
+Javascript was a big change from what we start learning in the first three modules,but I was able to make that a very impressing show case. This React/Redux project is just the start, think it can be impressing as well but would need some extra work.
+
+At first glance while doing the assignments, it doesn't look like it is that difficult. Until you have to build something from scratch, yes I was struggling in the beginning with this project. But as time went by I was grasping the matter much better.
+With some additional bootstrap styling it at least looks nice.
+
+I tried to re-create the homepage of the (Kawasaki) GTR Club Europe. I gave it for now a static homepage and about page. The React/Redux magic os happening in the members and tours section.
+There is a simple relationship between the two. Members could have been organizer of a tour and in that way can have many tours. But a tour can only have one organizer.
+
+Members and Tours are loaded from the Rails backend the moment App.js is mounted and stored in the store.
+When you click on members you will see a listing of all the members currently in the system with their repective function in the club. Same happens when you click on Tours, all tours in the system will be displayed with the starting date and the country where it will take place.
+
+In the ADD and Edit page of the Tour I wanted to create a dropdown with all the members in the system to add the organizer.
+Because at any moment someone can step up and organize a tour in their country so it had to be a dynamic dropdown.
+
+{% highlight javascript %}
+<Form.Label column sm="2">
+                                Organizer: 
+                            </Form.Label>
+                            
+                            <Select 
+                                options={this.props.members.map(member => {
+                                return { value : member.name, label: member.name, target: {value: member.id, name: "member_id"}}
+                                })}
+                                onChange={event => this.props.onChange(event)} 
+                                name="member_id"
+                            >          
+                                {this.props.members.map(member => (
+                                    <option 
+                                        member_id={member.id} 
+                                        value={member.id} 
+                                    >
+                                        {member.name}
+                                    </option>
+                                ))}
+                            </Select>
+{% endhighlight %}
+
+The members are loaded from the state through:
+{% highlight javascript %}
+export default connect(mapStateToProps)(TourForm)
+{% endhighlight %}
+
+which makes a connectionto the store  which can be invoked by the mapStateToProps function.
+{% highlight javascript %}
+function mapStateToProps(state, ownProps) {
+    return {
+        members: state.members
+    };
+}
+{% endhighlight %}
+
+This connection to the store and the function mapStateToProps makes the member objects array available in the tourForm class as props
 
 I log my contacts in two different places, most contacts I have made so far are on digital modes. The programs I use for this offer automated logging to online logbooks. The ones that I use are Logbook of the World (LotW) hosted by the ARRL (American Radio Relay League) and eQSL.cc. Both sites allow you to download your contacts in ADIF format, a format that was proposed in 1996 and used by many logging programs since 1997. This should make importing the data fairly easy.
 For my project I used the LoTW data to seed my data into the postgresql database
