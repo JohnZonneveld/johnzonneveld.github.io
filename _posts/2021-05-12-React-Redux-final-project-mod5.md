@@ -6,21 +6,22 @@ title: React/Redux Portfolio Project Flatiron School (mod5 project)!
 <h2>React/Redux project - GCE pages</h2>
 ![GCE pages](/assets/img/gce_homepage.jpg){:class="img-responsive"}
 
-For my project I took something that is close to me but yet so far away. I have been travelling all over Europe with a motorcycle group. Last year one of the members that was acting as webmaster stepped down, although I live in the US nowadays I volunteered to take over the helm if there were no other contestants.
-Officially this should have been my project in February, but life happened. Slept in my car for 5 weeks and the corona situation didn't make things easier as well. On top of it we had the Texas freeze
+For my project I took something that is close to me but yet so far away. I have been travelling all over Europe with a motorcycle group. Last year one of the members that was acting as webmaster stepped down, although I live in the US nowadays I volunteered to take over the helm if there was noone stepping up.
+Officially this should have been my project in February, but life happened. Slept in my car for 5 weeks and the corona situation didn't make things easier as well. On top of it we had the Texas freeze.
 But that is all behind us now and we're trying to pick up the pieces and make best of life.
 
-Made a simple React/Redux project that fullfills in the requirements that were set in stone, or at least I hope.
+Made a simple React/Redux project that fullfills the requirements that were set in stone, or at least I hope.
 Javascript was a big change from what we started to learn in the first three modules,but I was able to make that a very impressing show case. This React/Redux project is just the start, think it can be impressing as well but would need some extra work.
 
 At first glance while doing the assignments in the curriculum, React and later Redux added doesn't look like it is that difficult. Until you have to build something from scratch, yes I was struggling in the beginning with this project. But as time went by I was grasping the matter much better.
 With some additional bootstrap styling it at least looks nice.
 
-I tried to re-create the homepage of the (Kawasaki) GTR Club Europe. I gave it for now a static homepage and about page. The React/Redux magic os happening in the members and tours section.
+I tried to re-create the homepage of the (Kawasaki) GTR Club Europe. I gave it for now a static homepage and about page. The React/Redux magic is happening in the members and tours section.
 There is a simple relationship between the two. Members could have been organizer of a tour and in that way can have many tours. But a tour can only have one organizer.
 
 Members and Tours are loaded from the Rails backend the moment App.js is mounted and stored in the store.
-When you click on members you will see a listing of all the members currently in the system with their repective role in the club. Same happens when you click on Tours, all tours in the system will be displayed with the starting date and the country where it will take place.
+When you click on members you will see a listing of all the members currently in the system with their repective role in the club. Used a ternary operator to display the separating comma and the role when it is available.
+Same happens when you click on Tours, all tours in the system will be displayed with the starting date and the country where it will take place.
 
 In the ADD and Edit page of the Tour I wanted to create a dropdown with all the members in the system to add the organizer.
 Because at any moment someone can step up and organize a tour in their country so it had to be a dynamic dropdown.
@@ -43,7 +44,7 @@ The members are loaded from the state through:
 export default connect(mapStateToProps)(TourForm)
 {% endhighlight %}
 
-which makes a connectionto the store  which can be invoked by the mapStateToProps function.
+This makes a connection to the store which is called by the mapStateToProps function.
 {% highlight javascript %}
 function mapStateToProps(state, ownProps) {
     return {
@@ -52,7 +53,7 @@ function mapStateToProps(state, ownProps) {
 }
 {% endhighlight %}
 
-This connection to the store and the function mapStateToProps makes the member objects array available in the tourForm class as props.
+This connection to the store and the function mapStateToProps makes the member objects array available in the tourForm or MemberAdd class as props.
 
 So to display the members in the dropdown we simply have to call the .map function on this.props.members
 Bycoming problem, although it makes things easier, is that Select is only showing the value and label. So for the onChange we would have to write a separate function. To overcome this I added the target: 
