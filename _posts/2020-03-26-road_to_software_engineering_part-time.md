@@ -1,6 +1,6 @@
 ---
 layout: post
-title:      "Road to Software Engineering Part-time"
+title:  "Road to Software Engineering Part-time"
 ---
 
 

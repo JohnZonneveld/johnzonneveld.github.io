@@ -1,6 +1,6 @@
 ---
 layout: post
-title:      React/Redux Portfolio Project Flatiron School (mod5 project)!
+title: React/Redux Portfolio Project Flatiron School (mod5 project)!
 ---
 
 <h2>React/Redux project - GCE pages</h2>
