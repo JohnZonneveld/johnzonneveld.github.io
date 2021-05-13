@@ -4,7 +4,7 @@ title: React/Redux Portfolio Project Flatiron School (mod5 project)!
 ---
 
 <h2>React/Redux project - GCE pages</h2>
-![GCE pages](/assets/img/gce-homepage.jpg){:class="img-responsive"}
+![GCE pages](/assets/img/gce_homepage.jpg){:class="img-responsive"}
 
 For my project I took the same subject as with the Sinatra project, as a hobby I have my radio amateur license. Especially for long distances we like to keep a logbook, maybe a bit to show off.
 
