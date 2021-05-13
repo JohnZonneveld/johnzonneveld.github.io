@@ -13,7 +13,7 @@ But that is all behind us now and we're trying to pick up the pieces and make be
 Made a simple React/Redux project that fullfills in the requirements that were set in stone, or at least I hope.
 Javascript was a big change from what we started to learn in the first three modules,but I was able to make that a very impressing show case. This React/Redux project is just the start, think it can be impressing as well but would need some extra work.
 
-At first glance while doing the assignments, it doesn't look like it is that difficult. Until you have to build something from scratch, yes I was struggling in the beginning with this project. But as time went by I was grasping the matter much better.
+At first glance while doing the assignments in the curriculum, React and later Redux added doesn't look like it is that difficult. Until you have to build something from scratch, yes I was struggling in the beginning with this project. But as time went by I was grasping the matter much better.
 With some additional bootstrap styling it at least looks nice.
 
 I tried to re-create the homepage of the (Kawasaki) GTR Club Europe. I gave it for now a static homepage and about page. The React/Redux magic os happening in the members and tours section.
@@ -71,5 +71,5 @@ To be able to get to the key, value pairs of this mmember object we have to add 
 
 
 <h2>Conclusion</h2>
-Some other projects gave me a hard time of coming up with a subject and how to get it started. This project, because it is hobby related made things a lot easier. Most time I have spend on things that were not a project requirement, like how to use the JsonWebToken for the user authentication. Also implementing the Google maps API was challenging, you have to have a space defined on the page before you can call the map-script. Of course a lot of examples can be found on the world wide web, but never exactly what you are looking for.
-All in all it was fun to do, and while I was already near completion of this project, still some things to add or change came up after listening to the online lectures.
+
+Coming up with a subject was no issue at all.If it was a wise decission only time will tell. Think this might be a good start to later bring into practice and give the 'live' webpage I am webmaster of a React/Redux overhaul. For a second I was lost but at the end pieces were coming together.
