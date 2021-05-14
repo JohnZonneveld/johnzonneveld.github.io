@@ -68,8 +68,11 @@ const currentMemberObject = this.props.members.filter(member => member.id === th
 Here we filter the member object array based on the member_id that matches member.id. This returns an array with 1 object, the member in question.
 To be able to get to the key, value pairs of this mmember object we have to add the index in the newly created array [0]. The 'Select' uses defaultValue as parameter to display the current selection.
 
-
-defaultValue={{label: currentMemberObject[0].name, value: currentMemberObject[0].name}}`
+{% highlight javascript %}
+const defaultValue={{label:
+         currentMemberObject[0].name, value: currentMemberObject[0].name
+}}
+{% endhighlight %}
 
 
 ![edit pages](/assets/img/editForm.png){:class="img-responsive"}
