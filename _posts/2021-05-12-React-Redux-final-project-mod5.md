@@ -69,9 +69,9 @@ Here we filter the member object array based on the member_id that matches membe
 To be able to get to the key, value pairs of this mmember object we have to add the index in the newly created array [0]. The 'Select' uses defaultValue as parameter to display the current selection.
 
 {% highlight javascript %}
-const defaultValue={{label:
+defaultValue=\{\{label:
          currentMemberObject[0].name, value: currentMemberObject[0].name
-}}
+\}\}
 {% endhighlight %}
 
 
