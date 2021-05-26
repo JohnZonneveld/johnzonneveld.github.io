@@ -188,4 +188,4 @@ export default LikeButton
 {% endhighlight %}
 
 End result working counter
-![yay](/assets/img/run.gif)
+![yay](/assets/img/counter.gif)
