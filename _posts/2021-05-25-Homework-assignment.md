@@ -49,3 +49,61 @@ class LikeButton extends Component {
 
 export default LikeButton
 {% endhighlight %}
+LikeButton.js
+
+This component we can as said before call when we map the tours.
+
+{% highlight javascript %}
+import React, { Component } from 'react'
+import {Link} from 'react-router-dom';
+import LikeButton from './LikeButton'
+
+const ToursList = ({tours}) => {
+
+    return (
+        <ul>
+            {tours.map(
+                tour =>
+                    <li key={tour.id}>
+                        <Link to ={'/tours/' + tour.id}>{tour.name}</Link>
+                        {tour.country ? ', ' + tour.country : null}
+                        , {tour.date}
+                        <LikeButton />
+                    </li>
+            )}
+        </ul>
+    )
+}
+
+export default ToursList
+{% endhighlight %}
+ToursList.js
+
+As we call the LikeButton per mapped tour we create a separate LikeButton Object with its own local state for every tour. So the counter will only be updated on the button that is clicked. No need to keep track of id's to see which button is clicked. Every button is an object itself with its own eventListener.
+
+Okay after all that was no rocket science, although seeing Starship prototypes soar through the sky nearby might have influenced me.
+
+The next requirement was to add the field for the number of likes per click.
+ToursList is just a render of an unnumbered list, so I didn't want to change too much on that component. I created the required field in the ToursPage component by just adding the following code
+
+{% highlight javascript %}
+Number of likes given per click: <input type='text' onChange={this.handleChange} name='numberOfLikes'></input>
+{% endhighlight %}
+
+Further I added a local state for the numberOfLikes
+
+{% highlight javascript %}
+state = {
+        numberOfLikes: ''
+    }
+{% endhighlight %}
+
+And created an eventListener to update this state if something was typed into the field.
+
+{% highlight javascript %}
+handleChange = event => {
+    this.setState({ 
+            [event.target.name]: event.target.value
+    })
+}
+{% endhighlight %}
