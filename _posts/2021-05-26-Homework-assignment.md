@@ -192,6 +192,6 @@ End result working counter
 
 <h2>Conclusion</h2>
 
-After all it wasn't really that difficult, but unfortunately it took a little bit longer to complete then the time we had during the review. But it was fun, short assignment after all.
+After all it wasn't really that difficult, but unfortunately it took a little bit longer to complete then the time we had during the review. But it was a fun, short assignment after all.
 I have to look into the specs of the server where the eu.zggtr.org homepage is hosted to see if I would be able to make it a lttle more interactive. Where people could leave questions or comments about the tours or even post a link if they host the pictures they took on another website.
 Would be a fun and educational experience to make the refresh of the website a react/redux website.
