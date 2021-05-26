@@ -186,3 +186,6 @@ class LikeButton extends Component {
 
 export default LikeButton
 {% endhighlight %}
+
+End result working counter
+![yay](/assets/img/run.gif)
