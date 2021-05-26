@@ -20,5 +20,32 @@ Now a day later I sat down and started to think a little deeper about it.
 The easiest way would be to create a separate component and call that when the tours are mapped in the ToursList component.
 
 {% highlight javascript %}
-test
+import React, { Component } from 'react'
+
+class LikeButton extends Component {
+    constructor(props) {
+        super(props) 
+        this.state = {
+            count: 0
+        }
+    }
+
+    increaseLike = () => {
+        let delta = 1
+        let newCount = this.state.count + delta
+        this.setState({
+        count: newCount
+    })
+
+    }
+    render() {
+        return (
+            <div>
+                <button id={this.props.id} onClick={this.increaseLike}>Likes: {this.state.count}</button>
+            </div>
+        )
+    }
+}
+
+export default LikeButton
 {% endhighlight %}
