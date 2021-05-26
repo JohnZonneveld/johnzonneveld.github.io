@@ -19,6 +19,6 @@ At first I made a button in the ToursList itself but made a little mistake by in
 Now a day later I sat down and started to think a little deeper about it.
 The easiest way would be to create a separate component and call that when the tours are mapped in the ToursList component.
 
-<% javascript highlight %>
+{% highlight javascript %}
 test
-<% endhighlight %>
+{% endhighlight %}
