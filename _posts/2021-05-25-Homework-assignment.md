@@ -22,12 +22,9 @@ The easiest way would be to create a separate component and call that when the t
 {% highlight javascript %}
 import React, { Component } from 'react'
 
-class LikeButton extends Component {
-    constructor(props) {
-        super(props) 
-        this.state = {
-            count: 0
-        }
+class LikeButton extends Component { 
+    this.state = {
+        count: 0
     }
 
     increaseLike = () => {
@@ -51,7 +48,7 @@ export default LikeButton
 {% endhighlight %}
 LikeButton.js
 
-This component we can as said before call when we map the tours.
+This component we can, as said before, call when we map the tours.
 
 {% highlight javascript %}
 import React, { Component } from 'react'
@@ -106,4 +103,86 @@ handleChange = event => {
             [event.target.name]: event.target.value
     })
 }
+{% endhighlight %}
+
+Now as we call the TourList we pass the numberOfLikes as a prop.
+
+{% highlight javascript %}
+<ToursList tours={this.props.tours} numberOfLikes={this.state.numberOfLikes} />
+{% endhighlight %}
+
+To process the numberOfLikes in the Tours list we have to adapt the component declaration.
+To destructure this.props.numberOfLikes in the ToursList as we already did with the tours we add it in the first line of the component definition.
+
+{% highlight javascript %}
+const ToursList = ({tours, numberOfLikes}) => {
+    .....
+{% endhighlight %}
+
+This makes working with numberOfLikes a lot easier and makes the code easier to read as we can just call the value numberOfLikes as is in stead of using this.props.numberOfLikes.
+
+So at this moment the field value of numberOfLikes is available in the ToursList. Now we only have to pass this value to the LikeButton component.
+The complete code of ToursList is now as shown below
+
+{% highlight javascript %}
+import React, { Component } from 'react'
+import {Link} from 'react-router-dom';
+import LikeButton from './LikeButton'
+
+const ToursList = ({tours, numberOfLikes}) => {
+
+    return (
+        <ul>
+            {tours.map(
+                tour =>
+                    <li key={tour.id}>
+                        <Link to ={'/tours/' + tour.id}>{tour.name}</Link>
+                        {tour.country ? ', ' + tour.country : null}
+                        , {tour.date}
+                        <LikeButton numberOfLikes={numberOfLikes}/>
+                    </li>
+            )}
+        </ul>
+    )
+}
+
+export default ToursList
+{% endhighlight %}
+
+Okay we have already a working counter and the numberOfLikes is passed into the Likebutton component. Only problem we face is that the numberOfLikes is a string so we will have to change that into an integer. We will use parseInt() for that.
+I used a ternary operator to decide how much the counter should be updated after clicking the button.
+
+{% highlight javascript %}
+!!this.props.numberOfLikes ? delta=parseInt(this.props.numberOfLikes) : delta=1
+{% endhighlight %}
+
+This will set the value of delta that we already used in our LikeButton increaseLike function.
+
+{% highlight javascript %}
+import React, { Component } from 'react'
+
+class LikeButton extends Component { 
+        state = {
+            count: 0
+        }
+
+    increaseLike = () => {
+        let delta
+        !!this.props.numberOfLikes ? delta=parseInt(this.props.numberOfLikes) : delta=1
+        let newCount = this.state.count + delta
+        this.setState({
+        count: newCount
+    })
+
+    }
+    render() {
+        return (
+            <div>
+                <button id={this.props.id} onClick={this.increaseLike}>Likes: {this.state.count}</button>
+            </div>
+        )
+    }
+}
+
+export default LikeButton
 {% endhighlight %}
