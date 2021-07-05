@@ -71,4 +71,4 @@ Opening the calendar:
 ![DatePicker](/assets/img/calendar_opened.png){:class="img-responsive"}
 
 Calendar opened after selecting a date:
-![DatePicker](/assets/img/caledar_selected.png){:class="img-responsive"}
+![DatePicker](/assets/img/calendar_selected.png){:class="img-responsive"}
