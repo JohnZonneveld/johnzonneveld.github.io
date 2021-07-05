@@ -49,7 +49,10 @@ So to create an Object of our tour.date we use the function new Date(tour.date) 
 { (new Date(tour.date)).toLocaleDateString() }
 {% endhighlight %}
 
-Last change to make the field border the same color as the rest of the input fields we have to make a change in /node_modules/react-date-picker/dist/DatePicker.css
+Last change to make the field border the same color as the rest of the input fields we have to make a change in 
+{% highlight javascript %}
+/node_modules/react-date-picker/dist/DatePicker.css
+{% endhighlight %}
 
 In the class definition 
 {% highlight javascript %}
