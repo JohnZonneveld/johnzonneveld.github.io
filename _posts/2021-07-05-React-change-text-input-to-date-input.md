@@ -35,3 +35,27 @@ The code in the component is added like:
 If you look closely you see that for the value we create a new Date object, this is needed for react-date-picker needs object as input. For this we translate the given value in this.props.tour.date from a String to an Object.
 
 Furthermore the date column in the tour database has to be of type datetime. When using just the type of date, it can lead to faulty displayed values. In my case when I entered the date 03/09/2002 this was displayed in the rendered page as 03/08/2002.
+
+Only problem that occured was in the TourPage.js and TourList.js pages that the displayed date was including the time.
+
+The date would be displayed like:
+{% highlight javascript %}
+2002-03-09T06:00:00.000Z
+{% endhighlight %}
+
+To overcome this and just display the date we can use the toLocaleDateString function. Because this function is expecting an Object we have to create an object of our tour.date.
+So to create an Object of our tour.date we use the function new Date(tour.date) and this we will feed into the toLocaleDateString() function.
+{% highlight javascript %}
+{ (new Date(tour.date)).toLocaleDateString() }
+{% endhighlight %}
+
+Last change to make the field border the same color as the rest of the input fields we have to make a change in /node_modules/react-date-picker/dist/DatePicker.css
+
+In the class definition 
+{% highlight javascript %}
+.react-date-picker__wrapper
+{% endhighlight %}
+we have to change the border to
+{% highlight javascript %}
+border: thin solid #ced4da
+{% endhighlight %}
