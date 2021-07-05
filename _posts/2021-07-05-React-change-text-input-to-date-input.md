@@ -5,6 +5,8 @@ title: "Convert Text field to DatePicker in React"
 
 In my GCE webpages app I have a field for when a tour will take place, at the moment of writing this field is just a simple text input field. It would be nice to make that a calendar drop down.
 
+![DatePicker](/assets/img/empty_date.png){:class="img-responsive"}
+
 In the back-end this will also have some implications as of now the database the type of the date field is also just a string field.
 
 Choosing a datepicker
