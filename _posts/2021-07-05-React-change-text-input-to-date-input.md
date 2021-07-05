@@ -16,7 +16,7 @@ Installation is pretty simple with:
 npm install react-datepicker
 {% endhighlight %}
 
-To implement in the app all I had to do is to replace the textfield I had with a call to the DatePicker component.
+To implement in the app all I had to do is to replace the text field I had with a call to the DatePicker component.
 But at first the component has to be imported, so in the components that will be using the DatePicker I did a simple import:
 
 {% highlight javascript %}
