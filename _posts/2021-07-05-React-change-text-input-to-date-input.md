@@ -64,3 +64,11 @@ we have to change the border to
 {% highlight javascript %}
 border: thin solid #ced4da
 {% endhighlight %}
+
+Result
+
+Opening the calendar:
+![DatePicker](/assets/img/calendar_opened.png){:class="img-responsive"}
+
+Calendar opened after selecting a date:
+![DatePicker](/assets/img/caledar_selected.png){:class="img-responsive"}
