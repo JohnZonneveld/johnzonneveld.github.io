@@ -67,8 +67,10 @@ border: thin solid #ced4da
 
 Result
 
-Opening the calendar:
+Opening the calendar: 
+<br>
 ![DatePicker](/assets/img/calendar_opened.png){:class="img-responsive"}
-
+<br>
 Calendar opened after selecting a date:
+<br>
 ![DatePicker](/assets/img/calendar_selected.png){:class="img-responsive"}
