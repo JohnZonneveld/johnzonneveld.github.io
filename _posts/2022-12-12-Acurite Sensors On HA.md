@@ -17,7 +17,9 @@ Linux Containers:
 - MQTT
 - NodeRed
 
-##Githubs used for this integration
+##RTLSDR VM
+
+To be able to attach the USB dongle to the RTLSDR server it has to be a virtual machine, USB forwarding is not possible in a LXC. For this machine I installed Debian 11 without any desktop environment.
 
 On the RTLSDR Virtual Machine I followed this github until the docker section. https://github.com/mverleun/RTL433-to-mqtt
 My config.py:
@@ -31,6 +33,43 @@ MQTT_TOPIC="sensors/rtl_433"
 MQTT_QOS=0
 DEBUG=False # Change to True to log all MQTT messages
 ## End config section
+
+To run rtl_433 I configured a service in /etc/systemd/system/rtl433.service
+
+[Unit]
+Description=rtl_433 SDR Receiver Daemon
+StartLimitIntervalSec=5
+After=syslog.target network.target
+
+[Service]
+type=exec
+ExecStart=/usr/bin/python3 rtl2mqtt.py
+Restart=always
+RestartSec=30s
+User=root
+
+[Install]
+WantedBy=multi-user.target
+
+After this you have to run 'systemctl daemon-reload' and to start the service 'systemctl start rtl433'. To
+start it up on boot run 'systemctl enable rtl433'.
+
+With this configuration the messages coming from the sensors are being send to MQTT.
+
+#MQTT
+
+Because my machine is not exposed to the outside world I removed the authorization for MQTT.
+
+Configuration is found in '/etc/mosquitto/conf.d/default.conv
+
+persistence true
+listener 1883
+allow_anonymous true
+
+No other configuration is needed for the MQTT machine.
+With MQTT Explorer you can monitor the message arriving at the server.
+
+
 
 
 
