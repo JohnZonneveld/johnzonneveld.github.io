@@ -17,3 +17,6 @@ Linux Containers:
 - MQTT
 - NodeRed
 
+##Githubs used for this integration
+
+On the RTLSDR Virtual Machine I followed this github until the docker section. https://github.com/mverleun/RTL433-to-mqtt
