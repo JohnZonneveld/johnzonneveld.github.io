@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Acurite sensors connected to ProxMox deployed HA"
+title: "Acurite sensors - MQTT - HA on ProxMox"
 ---
 
 ## My setup
