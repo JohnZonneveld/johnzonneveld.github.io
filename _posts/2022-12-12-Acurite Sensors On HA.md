@@ -17,6 +17,8 @@ Linux Containers:
 - MQTT
 - NodeRed
 
+Acurite Sensor --> RTLSDR --> MQTT <--> HomeAssistant
+
 ## RTLSDR VM
 
 To be able to attach the USB dongle to the RTLSDR server it has to be a virtual machine, USB forwarding is not possible in a LXC. For this machine I installed Debian 11 without any desktop environment.
