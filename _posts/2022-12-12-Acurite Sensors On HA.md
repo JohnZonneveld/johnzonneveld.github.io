@@ -23,6 +23,7 @@ To be able to attach the USB dongle to the RTLSDR server it has to be a virtual 
 
 On the RTLSDR Virtual Machine I followed this github until the docker section. https://github.com/mverleun/RTL433-to-mqtt
 My config.py:
+
 ##Config section
 ##Fill in the next 2 lines if your MQTT server expected authentication
 MQTT_USER=""
@@ -69,8 +70,36 @@ allow_anonymous true
 No other configuration is needed for the MQTT machine.
 With MQTT Explorer you can monitor the message arriving at the server.
 
+## Home Assistant
 
+This section was the most confusing, there is plenty of information available but it might not be completely up to date anymore.
 
+the RTLSDR server is sending the messages from all received sensors to the same MQTT_TOPIC that is configured in config.py in my case that is 'sensors/rtl_433'.
 
+So we have to separate the messages per sensor in HA. For this we configure an Automation.
+automations.yaml
+- id: '1670900354958'
+  alias: rtl_433 demultiplexer
+  trigger:
+    platform: mqtt
+    topic: sensors/rtl_433
+  action:
+  - service: mqtt.publish
+    data:
+      topic: "mqttsensor{{ trigger.payload_json.id }}"
+      payload: "{{ trigger.payload }}"
+      retain: true
+      
+Because I created the automation in HA it is automatically assigned an unique ID.
+This automation is monitoring the mqtt messages with the name sensors/rtl_433, the json attached to these messages is the payload.
+
+sensors/rtl_433/Acurite-606TX/162/time 2022-12-12 22:56:02
+sensors/rtl_433/Acurite-606TX/162/id 162
+sensors/rtl_433/Acurite-606TX/162/battery_ok 1
+sensors/rtl_433/Acurite-606TX/162/temperature_C 23.5
+sensors/rtl_433/Acurite-606TX/162/mic CHECKSUM
+sensors/rtl_433 {"time" : "2022-12-12 22:56:33", "model" : "Acurite-606TX", "id" : 162, "battery_ok" : 1, "temperature_C" : 23.500, "mic" : "CHECKSUM"}
+
+When this automation is saved and the HA restarted, you can see the trigger activity when you open the automation. Every time a message comes in a trigger message will be displayed.
 
 
