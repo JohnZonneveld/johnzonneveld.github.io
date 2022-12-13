@@ -72,6 +72,8 @@ allow_anonymous true
 No other configuration is needed for the MQTT machine.
 With MQTT Explorer you can monitor the message arriving at the server.
 
+To monitor the incoming messages you can run 'mosquitto_sub -p 1883 -v -t "sensors/#"'
+
 ## Home Assistant
 
 This section was the most confusing, there is plenty of information available but it might not be completely up to date anymore.
