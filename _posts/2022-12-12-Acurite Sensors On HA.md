@@ -100,6 +100,29 @@ sensors/rtl_433/Acurite-606TX/162/temperature_C 23.5
 sensors/rtl_433/Acurite-606TX/162/mic CHECKSUM
 sensors/rtl_433 {"time" : "2022-12-12 22:56:33", "model" : "Acurite-606TX", "id" : 162, "battery_ok" : 1, "temperature_C" : 23.500, "mic" : "CHECKSUM"}
 
+The topic is set as mqttsensor concatenated with the id of the sensor. So the above sensor will have a topic of mqttsensor162. And it will be accompanied with its payload.
+
 When this automation is saved and the HA restarted, you can see the trigger activity when you open the automation. Every time a message comes in a trigger message will be displayed.
+
+The automation also writes the messages back to MQTT.
+
+Last thing to configure is the configuration.yaml
+mqtt:
+  sensor:
+    - state_topic: "mqttsensor162"
+      value_template: "{{ ((value_json.temperature_C * 9/5)+32)| round(1) }}"
+      name: "Sensor Livingroom"
+      unit_of_measurement: '°F'
+    - state_topic: "mqttsensor9217"
+      value_template: "{{((value_json.temperature_C * 9/5)+32)| round(1)}}"
+      name: "Sensor Outside Temp"
+      unit_of_measurement: '°F'
+    - state_topic: "mqttsensor9217"
+      value_template: "{{value_json.humidity}}"
+      name: "Sensor Outside Humidity"
+      unit_of_measurement: '%'
+      
+As shown in this config you see two sensors, one of my neighbors has a Acurite-Tower on his/her balcony. and it is beaconing it messages on the same frequency. So we just listen in. As you can see that sensor 9217 also has a humidity sensor.
+For both sensors we convert the temperature from Celsius to Fahrenheit and add the unit symbol.
 
 
