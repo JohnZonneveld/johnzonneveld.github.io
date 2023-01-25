@@ -3,7 +3,7 @@ layout: post
 title: "Autogrid - WSJT-X - gpsd"
 ---
 
-Great work has be done by Brian Moran in the past to create a working python script to automatically update the gridsquare in WSJT-X in Windows (https://github.com/bmo/py-wsjtx). As far as I understand after plugging in a USB GPS dongle it resembles a serial port. In his script he added a todo for Linux, but for some reason it never happened. Looking at the date of his work, it was mainly done a little over 4 years ago in 2018.
+Great work has be done by Brian Moran in the past to create a working python script to automatically update the gridsquare in WSJT-X in Windows (https://github.com/bmo/py-wsjtx). As far as I understand after plugging in a USB GPS dongle on a windows based system it resembles a serial port. In his script he added a todo for Linux, but for some reason it never happened. Looking at the date of his work, it was mainly done a little over 4 years ago in 2018.
 
 Most of my operations are mobile so my grid is changing almost every time I head out to do another POTA activation. As my windows laptop has some kind of battery issue that wasn't resolved by replacing the battery I was looking for other ways. My other option was using my MacBook, but problem arises there that after a while I would have to charge that too.
 As I recently did acquire a generator both option shouldn't be a real issue anymore.
