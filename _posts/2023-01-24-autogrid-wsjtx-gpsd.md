@@ -15,7 +15,7 @@ Until now when I went to a park I was using my phone and the Android app HamGPS 
 Back to the python script (I did install python3 on my Quadra), there is a slight difference between the way Brian followed and how gpsd works in linux. In his script a connection to the serial port is opened and the script is reading the $GPGLL NMEA0183 messages. With gpsd it is possible to open a stream with gpspipe to send the stream of NMEA messages to for example stdout. still have to dig a little bit further to look at this to see if and how it can be send somewhere else and treat it like the serial stream Brian is using.
 Gpsd however standard sends out the position in decimal notation, so a lot of conversion Brian is doing in his script is not needed. Part of his script is already able to translate from decimal position notation to a gridsquare.
 
-I modified the NMEAlocation class and especially the function handleSerial. I renamed the function to convert and modified it. I did remove some error handling for now. Main goal at first was to get things working.
+I modified the NMEAlocation class and especially the function handle_serial. I renamed the function to convert and modified it. I did remove some error handling for now. Main goal at first was to get things working.
 
 Full NMEAlocation class:
 ```python
@@ -47,7 +47,7 @@ class NMEALocation(object):
                     c_thr.start()
 ```
 
-Only changed part in this is the function convert which was originally called serial_handler. As we don't handle the serial anymore I renamed it and simplified it to adapt for gpsd that is already sending the decimal position:
+Only changed part in this is the function convert which was originally called handle_serial. As we don't handle the serial anymore I renamed it and simplified it to adapt for gpsd that is already sending the decimal position:
 ```python
 def convert(self,lat,lon):
     # should be a single line.
@@ -67,7 +67,7 @@ def convert(self,lat,lon):
                 c_thr.start()
 ```
 
-I also added Gpspoller to the code, this is as the name already mentions polling the GPS. This will be used to read the gpsd data. Code was found both on GitHub and StackOverflow.
+I also added GpsPoller to the code, this is as the name already mentions polling the GPS. This will be used to read the gpsd data. Code was found both on GitHub and StackOverflow.
 
 ```python
 class GpsPoller(threading.Thread):
@@ -100,7 +100,7 @@ The main program looks like followed. It is mainly Brian's script modified for g
 ```python
 while True:
 
-    (pkt, addr_port) = s.rx_packet()
+    (pkt, addr_port) = s.rx_packet() # communication with the WSJT-x instance
     if (pkt != None):
         the_packet = pywsjtx.WSJTXPacketClassFactory.from_udp_packet(addr_port, pkt)
         if wsjtx_id is None and (type(the_packet) == pywsjtx.HeartBeatPacket):
@@ -130,3 +130,21 @@ As long as the GPS doesn't have a fix gpsp only report 5 key,value components th
 ```python 
 if len(list(report.keys())) > 5:
 ```
+Without a fix and useful information there is also no need to call the convert function so that is also included within this if condition.
+When there is a fix and thus a location nmea_p.convert(lat,lon) is called. This has actually two functions it triggers the callback function for the NMEAlocation which is defined in the class definition in the __init__ section, 
+```python
+def __init__(self, grid_changed_callback = None)
+```
+when the location has changed it calls the example_callback function that was passed when nmea_p was defined. It also calls the convert function that actually does the conversion from a decimal position notation to an actual gridsquare.
+
+The actual calculation of the gridsquare is done in /pywsjtx/extra/latlong_to_grid_square.py. I made some changes there, but later I came to the conclusion that these were not necessary as we could directly call the to_grid function passing the decimal lat and lon values.
+
+There is a small problem in the original script that causes unnecessary messages send to WSJT-X. The notation in WSJT-X of the gridsquare is in all capitals, while it should be in the format AA11aa.
+
+The original script return with the AA11aa notation. So there will always be a difference in the grid because the script evaluates AA11aa == AA11AA correctly as being false. So despite the correct grid already send to WSJT-X this keeps repeating. To avoid this I made the evalution case insensitive.
+```python
+if gps_grid != "" and the_packet.de_grid.lower() != gps_grid.lower():
+```
+For the comparison I convert both the calculated and received gridsquare to lowercase with the lower() function.
+
+To be continued
