@@ -130,6 +130,9 @@ As long as the GPS doesn't have a fix gpsp only report 5 key,value components th
 ```python 
 if len(list(report.keys())) > 5:
 ```
+GPS message without a fix:
+{"class":"TPV","device":"/dev/ttyACM0","mode":1,"leapseconds":18}
+
 Without a fix and useful information there is also no need to call the convert function so that is also included within this if condition.
 When there is a fix and thus a location nmea_p.convert(lat,lon) is called. This has actually two functions it triggers the callback function for the NMEAlocation which is defined in the class definition in the __init__ section, 
 ```python
