@@ -6,6 +6,7 @@ permalink: /about/
 
 My name is John, have been working as an electrical technician and telecommunications technician. My career in the telecommunication ended as a Technical Consultant at KPN Zakelijke Markt (Bussiness Communications) in 2013 when I moved to the USA.
 In March 2020 I started my Software Engineering Bootcamp at Flatiron School. As of now I am in mod 4 working on my Rails/JS One Page Application project. If everything works out well I will be finished in February 2021.
+Meanwhile a few years later, had the problem of being certified but having 'no experience', so joined Revature as they offered training with a job guanrantee. Unfortunately was placed in a Pega Cohort (Low-/No-Code). After my training completed was more or less sold off to another company in the DFW area. That fairytale lasted for 4 years and 3 months, so back on the job search path again.
 
 ### More Information
 
@@ -13,6 +14,7 @@ Some hobbies of me:
 - Formula 1 racing (watching and following that is)
 - HAM Radio, became licensed in 2017 meanwhile obtained my Amateur Extra license.
 - RACES (Radio Amateur Civil Emergency Services)
+-  ARES (Amateur Radio Emergency Service)
 - Photography
 - Motorcycling
 
